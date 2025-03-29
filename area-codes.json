@@ -1,0 +1,138 @@
+{
+  "data": [
+    {"areaCode": "100", "region": "Lagos", "description": "Lagos Island, Ikoyi"},
+    {"areaCode": "101", "region": "Lagos", "description": "Victoria Island, Ajah, Lekki"},
+    {"areaCode": "102", "region": "Lagos", "description": "Ikeja, Maryland, Ketu, Ilupeju"},
+    {"areaCode": "103", "region": "Lagos", "description": "Apapa, Ajegunle, Tincan"},
+    {"areaCode": "104", "region": "Lagos", "description": "Surulere, Yaba, Festac, Amuwo-Odofin"},
+    {"areaCode": "105", "region": "Lagos", "description": "Mushin, Oshodi, Isolo, Egbeda"},
+    {"areaCode": "106", "region": "Lagos", "description": "Ikotun, Igando, Ojo, Badagry"},
+    {"areaCode": "107", "region": "Lagos", "description": "Ikorodu, Epe"},
+
+    {"areaCode": "900", "region": "Abuja FCT", "description": "Abuja Central, Garki, Maitama, Wuse"},
+    {"areaCode": "901", "region": "Abuja FCT", "description": "Abuja districts, Gwagwalada, Kuje"},
+    {"areaCode": "902", "region": "Abuja FCT", "description": "Nyanya, Karu, Jikwoyi"},
+
+    {"areaCode": "440", "region": "Abia", "description": "Umuahia, Bende, Ohafia"},
+    {"areaCode": "441", "region": "Abia", "description": "Aba, Ukwa, Ugwunagbo"},
+    {"areaCode": "442", "region": "Abia", "description": "Abia state districts"},
+
+    {"areaCode": "640", "region": "Adamawa", "description": "Yola, Mubi, Jimeta"},
+    {"areaCode": "641", "region": "Adamawa", "description": "Adamawa state districts"},
+
+    {"areaCode": "520", "region": "Akwa Ibom", "description": "Uyo, Ikot Ekpene"},
+    {"areaCode": "521", "region": "Akwa Ibom", "description": "Eket, Oron, Ikot Abasi"},
+
+    {"areaCode": "420", "region": "Anambra", "description": "Awka, Njikoka"},
+    {"areaCode": "421", "region": "Anambra", "description": "Onitsha, Ogbaru"},
+    {"areaCode": "422", "region": "Anambra", "description": "Nnewi, Ihiala, Ekwusigo"},
+
+    {"areaCode": "740", "region": "Bauchi", "description": "Bauchi, Azare, Misau"},
+    {"areaCode": "741", "region": "Bauchi", "description": "Bauchi state districts"},
+
+    {"areaCode": "561", "region": "Bayelsa", "description": "Yenagoa, Sagbama, Nembe"},
+    {"areaCode": "562", "region": "Bayelsa", "description": "Brass, Ogbia, Southern Ijaw"},
+
+    {"areaCode": "970", "region": "Benue", "description": "Makurdi, Gboko, Otukpo"},
+    {"areaCode": "971", "region": "Benue", "description": "Benue state districts"},
+
+    {"areaCode": "600", "region": "Borno", "description": "Maiduguri, Bama, Gwoza"},
+    {"areaCode": "601", "region": "Borno", "description": "Borno state districts"},
+
+    {"areaCode": "540", "region": "Cross River", "description": "Calabar, Akpabuyo, Akamkpa"},
+    {"areaCode": "541", "region": "Cross River", "description": "Ogoja, Obudu, Ikom"},
+
+    {"areaCode": "320", "region": "Delta", "description": "Asaba, Oshimili, Aniocha"},
+    {"areaCode": "321", "region": "Delta", "description": "Warri, Uvwie, Sapele"},
+    {"areaCode": "322", "region": "Delta", "description": "Ughelli, Isoko, Ndokwa"},
+
+    {"areaCode": "480", "region": "Ebonyi", "description": "Abakaliki, Izzi, Ohaukwu"},
+    {"areaCode": "481", "region": "Ebonyi", "description": "Afikpo, Ivo, Ohaozara"},
+
+    {"areaCode": "300", "region": "Edo", "description": "Benin City, Oredo, Egor"},
+    {"areaCode": "301", "region": "Edo", "description": "Auchi, Etsako, Akoko-Edo"},
+
+    {"areaCode": "360", "region": "Ekiti", "description": "Ado-Ekiti, Ikere, Irepodun/Ifelodun"},
+    {"areaCode": "361", "region": "Ekiti", "description": "Ekiti state districts"},
+
+    {"areaCode": "400", "region": "Enugu", "description": "Enugu, Nkanu, Udi"},
+    {"areaCode": "401", "region": "Enugu", "description": "Nsukka, Igbo-Etiti, Igbo-Eze"},
+
+    {"areaCode": "760", "region": "Gombe", "description": "Gombe, Akko, Billiri"},
+    {"areaCode": "761", "region": "Gombe", "description": "Gombe state districts"},
+
+    {"areaCode": "460", "region": "Imo", "description": "Owerri, Mbaitoli, Ikeduru"},
+    {"areaCode": "461", "region": "Imo", "description": "Orlu, Ideato, Nwangele"},
+    {"areaCode": "462", "region": "Imo", "description": "Okigwe, Onuimo, Isiala Mbano"},
+
+    {"areaCode": "720", "region": "Jigawa", "description": "Dutse, Hadejia, Gumel"},
+    {"areaCode": "721", "region": "Jigawa", "description": "Jigawa state districts"},
+
+    {"areaCode": "700", "region": "Kaduna", "description": "Kaduna, Chikun, Igabi"},
+    {"areaCode": "701", "region": "Kaduna", "description": "Zaria, Sabon Gari, Giwa"},
+    {"areaCode": "702", "region": "Kaduna", "description": "Kafanchan, Jema'a, Kachia"},
+
+    {"areaCode": "700", "region": "Kano", "description": "Kano Municipal, Fagge, Dala"},
+    {"areaCode": "701", "region": "Kano", "description": "Rano, Gaya, Bichi"},
+
+    {"areaCode": "820", "region": "Katsina", "description": "Katsina, Daura, Funtua"},
+    {"areaCode": "821", "region": "Katsina", "description": "Katsina state districts"},
+
+    {"areaCode": "860", "region": "Kebbi", "description": "Birnin Kebbi, Argungu, Yauri"},
+    {"areaCode": "861", "region": "Kebbi", "description": "Kebbi state districts"},
+
+    {"areaCode": "260", "region": "Kogi", "description": "Lokoja, Ajaokuta, Kabba/Bunu"},
+    {"areaCode": "261", "region": "Kogi", "description": "Okene, Adavi, Okehi"},
+    {"areaCode": "262", "region": "Kogi", "description": "Idah, Ankpa, Dekina"},
+
+    {"areaCode": "240", "region": "Kwara", "description": "Ilorin, Offa, Omu-Aran"},
+    {"areaCode": "241", "region": "Kwara", "description": "Kwara state districts"},
+
+    {"areaCode": "950", "region": "Nasarawa", "description": "Lafia, Keffi, Akwanga"},
+    {"areaCode": "951", "region": "Nasarawa", "description": "Nasarawa state districts"},
+
+    {"areaCode": "920", "region": "Niger", "description": "Minna, Suleja, Kontagora"},
+    {"areaCode": "921", "region": "Niger", "description": "Bida, Lavun, Mokwa"},
+
+    {"areaCode": "110", "region": "Ogun", "description": "Abeokuta, Ifo, Ewekoro"},
+    {"areaCode": "111", "region": "Ogun", "description": "Sagamu, Ikenne, Remo"},
+    {"areaCode": "112", "region": "Ogun", "description": "Ijebu Ode, Ijebu East, Ijebu North"},
+    {"areaCode": "113", "region": "Ogun", "description": "Ota, Ado-Odo/Ota, Yewa"},
+
+    {"areaCode": "340", "region": "Ondo", "description": "Akure, Ifedore, Idanre"},
+    {"areaCode": "341", "region": "Ondo", "description": "Ondo, Odigbo, Ile-Oluji/Okeigbo"},
+    {"areaCode": "342", "region": "Ondo", "description": "Okitipupa, Irele, Ilaje"},
+
+    {"areaCode": "220", "region": "Osun", "description": "Osogbo, Olorunda, Irepodun"},
+    {"areaCode": "221", "region": "Osun", "description": "Ife, Ede, Iwo"},
+    {"areaCode": "222", "region": "Osun", "description": "Ilesa, Ila, Ifelodun"},
+    {"areaCode": "223", "region": "Osun", "description": "Osun state districts"},
+
+    {"areaCode": "200", "region": "Oyo", "description": "Ibadan, Egbeda, Ona-Ara"},
+    {"areaCode": "201", "region": "Oyo", "description": "Ogbomoso, Oyo, Iseyin"},
+    {"areaCode": "202", "region": "Oyo", "description": "Saki, Oke-Ogun area"},
+    {"areaCode": "203", "region": "Oyo", "description": "Eruwa, Ibarapa area"},
+
+    {"areaCode": "930", "region": "Plateau", "description": "Jos, Bassa, Riyom"},
+    {"areaCode": "931", "region": "Plateau", "description": "Pankshin, Mangu, Bokkos"},
+    {"areaCode": "932", "region": "Plateau", "description": "Shendam, Langtang, Qua'an Pan"},
+
+    {"areaCode": "500", "region": "Rivers", "description": "Port Harcourt, Obio/Akpor"},
+    {"areaCode": "501", "region": "Rivers", "description": "Oyigbo, Eleme, Tai"},
+    {"areaCode": "502", "region": "Rivers", "description": "Bonny, Degema, Asari-Toru"},
+    {"areaCode": "503", "region": "Rivers", "description": "Ahoada, Abua/Odual, Ogba/Egbema/Ndoni"},
+
+    {"areaCode": "840", "region": "Sokoto", "description": "Sokoto, Rabah, Illela"},
+    {"areaCode": "841", "region": "Sokoto", "description": "Sokoto state districts"},
+
+    {"areaCode": "660", "region": "Taraba", "description": "Jalingo, Ardo-Kola, Lau"},
+    {"areaCode": "661", "region": "Taraba", "description": "Wukari, Ibi, Takum"},
+    {"areaCode": "662", "region": "Taraba", "description": "Taraba state districts"},
+
+    {"areaCode": "620", "region": "Yobe", "description": "Damaturu, Potiskum, Nguru"},
+    {"areaCode": "621", "region": "Yobe", "description": "Yobe state districts"},
+
+    {"areaCode": "880", "region": "Zamfara", "description": "Gusau, Anka, Talata Mafara"},
+    {"areaCode": "881", "region": "Zamfara", "description": "Zamfara state districts"}
+  ]
+}
