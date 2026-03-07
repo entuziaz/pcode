@@ -96,7 +96,13 @@
     });
 
     var locationButton = el("button", { type: "button", text: "Use my location" });
-    var status = el("p", { className: "status", text: "Ready" });
+    var status = el("p", {
+      className: "status",
+      text: "Ready",
+      role: "status",
+      "aria-live": "polite",
+      "aria-atomic": "true"
+    });
     var streetById = {};
     var isBusy = false;
 
