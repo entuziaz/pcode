@@ -13,6 +13,7 @@ const {
 
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "..", "public");
+const DEVELOPER_DOCS_DIR = path.join(__dirname, "..", "docs", "developers");
 
 function json(res, statusCode, payload) {
   const body = JSON.stringify(payload, null, 2);
@@ -62,17 +63,22 @@ function contentTypeFor(filePath) {
       return "text/css; charset=utf-8";
     case ".json":
       return "application/json; charset=utf-8";
+    case ".md":
+      return "text/markdown; charset=utf-8";
     default:
       return "text/plain; charset=utf-8";
   }
 }
 
-function serveStatic(reqPath, res) {
-  const normalized = reqPath === "/" || reqPath === "/demo" ? "/demo/index.html" : reqPath;
-  const filePath = path.join(PUBLIC_DIR, normalized);
+function serveStaticFrom(baseDir, reqPath, res, fallbackPath) {
+  const normalized =
+    reqPath === "/" || reqPath === "/demo"
+      ? (fallbackPath || "/demo/index.html")
+      : reqPath;
+  const filePath = path.join(baseDir, normalized);
   const safePath = path.normalize(filePath);
 
-  if (!safePath.startsWith(PUBLIC_DIR)) {
+  if (!safePath.startsWith(baseDir)) {
     json(res, 403, { error: "Forbidden" });
     return;
   }
@@ -89,6 +95,19 @@ function serveStatic(reqPath, res) {
     "Content-Length": content.length
   });
   res.end(content);
+}
+
+function servePublicStatic(reqPath, res) {
+  if (reqPath === "/docs") {
+    return serveStaticFrom(PUBLIC_DIR, "/docs/index.html", res, "/demo/index.html");
+  }
+  return serveStaticFrom(PUBLIC_DIR, reqPath, res, "/demo/index.html");
+}
+
+function serveDeveloperDocs(reqPath, res) {
+  const stripped = reqPath.replace(/^\/devdocs/, "");
+  const normalized = stripped === "" || stripped === "/" ? "/README.md" : stripped;
+  return serveStaticFrom(DEVELOPER_DOCS_DIR, normalized, res, "/README.md");
 }
 
 const server = http.createServer(async (req, res) => {
@@ -153,8 +172,12 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, result);
     }
 
+    if (req.method === "GET" && requestUrl.pathname.startsWith("/devdocs")) {
+      return serveDeveloperDocs(requestUrl.pathname, res);
+    }
+
     if (req.method === "GET") {
-      return serveStatic(requestUrl.pathname, res);
+      return servePublicStatic(requestUrl.pathname, res);
     }
 
     return json(res, 405, { error: "Method not allowed" });

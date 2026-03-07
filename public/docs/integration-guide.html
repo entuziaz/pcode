@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pCode Integration Guide</title>
+    <link rel="stylesheet" href="/docs/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="topbar">
+        <div class="brand">pCode Integration Guide</div>
+        <nav class="nav">
+          <a href="/docs/index.html">Overview</a>
+          <a href="/docs/api-reference.html">API Reference</a>
+          <a href="/docs/integration-guide.html">Integration Guide</a>
+          <a href="/demo/index.html">Back to Demo</a>
+        </nav>
+      </header>
+      <main class="main">
+        <h1>Integration Guide</h1>
+        <p>Recommended integration sequence for checkout/address forms.</p>
+
+        <h2>Recommended Flow</h2>
+        <ol>
+          <li>User types street/area text.</li>
+          <li>Call <code>GET /search</code> to populate suggestions.</li>
+          <li>User selects a suggestion.</li>
+          <li>Auto-fill postcode, area, LGA, state.</li>
+          <li>Optional: Use location and call <code>POST /reverse-geocode</code>.</li>
+        </ol>
+
+        <h2>Data Contract</h2>
+        <ul>
+          <li><code>houseNumber</code></li>
+          <li><code>street</code></li>
+          <li><code>postcode</code></li>
+          <li><code>postcodePrefix</code></li>
+          <li><code>area</code></li>
+          <li><code>lga</code></li>
+          <li><code>state</code></li>
+          <li><code>lat</code> / <code>lng</code> (optional)</li>
+        </ul>
+
+        <h2>Minimal Browser Example</h2>
+        <pre><code>async function searchAddresses(query) {
+  const res = await fetch(`/search?query=${encodeURIComponent(query)}&limit=10`);
+  if (!res.ok) throw new Error(`Search failed: ${res.status}`);
+  const data = await res.json();
+  return data.results;
+}
+
+function applySelection(record, form) {
+  form.street.value = record.street;
+  form.postcode.value = record.postcode || `${record.postcodePrefix}000`;
+  form.area.value = record.area;
+  form.lga.value = record.lga;
+  form.state.value = record.state;
+}</code></pre>
+
+        <h2>Pilot Caveats</h2>
+        <ul>
+          <li>Lagos-only dataset in current MVP.</li>
+          <li>Many records have <code>postcode: null</code>; fallback to prefix.</li>
+          <li>Reverse geocode is centroid-backed; treat as assisted suggestion.</li>
+          <li>Keep manual override for support operations.</li>
+        </ul>
+
+        <h2>Production Hardening</h2>
+        <ul>
+          <li>Add API key and rate limits before public exposure.</li>
+          <li>Cache common search/postcode lookups.</li>
+          <li>Track unresolved addresses for data quality cleanup.</li>
+          <li>Add schema validation for API responses in client apps.</li>
+        </ul>
+      </main>
+    </div>
+  </body>
+</html>

@@ -18,6 +18,12 @@ Repository: [https://github.com/entuziaz/pcode](https://github.com/entuziaz/pcod
   - `POST /reverse-geocode`
 - Basic embeddable address plugin demo page.
 
+## Developer Docs
+
+- Start here: [Developer Docs](./docs/developers/README.md)
+- API details: [API Reference](./docs/developers/api-reference.md)
+- Integration steps: [Integration Guide](./docs/developers/integration-guide.md)
+
 ## Project Structure
 
 - `scripts/build-dataset.js`: compiles and normalizes raw text files into canonical JSON.

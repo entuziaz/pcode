@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pCode API Reference</title>
+    <link rel="stylesheet" href="/docs/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="topbar">
+        <div class="brand">pCode API Reference</div>
+        <nav class="nav">
+          <a href="/docs/index.html">Overview</a>
+          <a href="/docs/api-reference.html">API Reference</a>
+          <a href="/docs/integration-guide.html">Integration Guide</a>
+          <a href="/demo/index.html">Back to Demo</a>
+        </nav>
+      </header>
+      <main class="main">
+        <h1>API Reference</h1>
+        <p>Base URL: <code>http://localhost:3000</code></p>
+        <ul>
+          <li>Content-Type: <code>application/json</code></li>
+          <li>CORS: enabled (<code>*</code>)</li>
+          <li>Methods: <code>GET</code>, <code>POST</code>, <code>OPTIONS</code></li>
+        </ul>
+
+        <hr />
+        <h2>GET /postcode/:code/streets</h2>
+        <p>Lookup streets by 3-digit prefix or 6-digit postcode.</p>
+        <ul>
+          <li>Accepts <code>100</code> or <code>100281</code></li>
+          <li>Non-digit characters are stripped</li>
+          <li>Legacy alias also works: <code>GET /postcode/:code</code></li>
+        </ul>
+        <pre><code>curl "http://localhost:3000/postcode/100/streets"
+
+# Invalid-length sample
+curl "http://localhost:3000/postcode/12/streets"</code></pre>
+
+        <hr />
+        <h2>GET /search?query=&lt;text&gt;&amp;limit=&lt;n&gt;</h2>
+        <p>Ranked partial matching for streets, areas, and LGAs.</p>
+        <table class="table">
+          <thead><tr><th>Param</th><th>Type</th><th>Required</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><code>query</code></td><td>string</td><td>Yes</td><td>Free-text query</td></tr>
+            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Default 20, max 100</td></tr>
+          </tbody>
+        </table>
+        <pre><code>curl "http://localhost:3000/search?query=awolowo&limit=5"</code></pre>
+
+        <hr />
+        <h2>POST /reverse-geocode</h2>
+        <p>Returns nearest structured address guess from available geo data.</p>
+        <pre><code>curl -X POST "http://localhost:3000/reverse-geocode" \
+  -H "Content-Type: application/json" \
+  -d '{"lat":6.5,"lng":3.35}'</code></pre>
+
+        <hr />
+        <h2>GET /health</h2>
+        <p>Service and dataset health check.</p>
+        <pre><code>curl "http://localhost:3000/health"</code></pre>
+
+        <h3>Errors</h3>
+        <ul>
+          <li><code>400</code>: invalid lat/lng payload</li>
+          <li><code>404</code>: no geocoded records or unknown route</li>
+          <li><code>405</code>: unsupported method</li>
+          <li><code>500</code>: server/runtime issue</li>
+        </ul>
+      </main>
+    </div>
+  </body>
+</html>

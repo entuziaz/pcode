@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pCode Developer Docs</title>
+    <link rel="stylesheet" href="/docs/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="topbar">
+        <div class="brand">pCode Developer Docs</div>
+        <nav class="nav">
+          <a href="/docs/index.html">Overview</a>
+          <a href="/docs/api-reference.html">API Reference</a>
+          <a href="/docs/integration-guide.html">Integration Guide</a>
+          <a href="/demo/index.html">Back to Demo</a>
+        </nav>
+      </header>
+      <main class="main">
+        <h1>Overview</h1>
+        <p>
+          These docs are the integration guide for engineering teams embedding pCode into
+          checkout, address capture, and logistics systems.
+        </p>
+
+        <div class="note">
+          Scope: current production-ready integration target is Lagos pilot data.
+        </div>
+
+        <h2>Read This First</h2>
+        <ul>
+          <li><a href="/docs/api-reference.html">API Reference</a>: endpoint contracts, payloads, errors</li>
+          <li><a href="/docs/integration-guide.html">Integration Guide</a>: implementation patterns and rollout guidance</li>
+        </ul>
+
+        <h2>Base URL</h2>
+        <p>Local: <code>http://localhost:3000</code></p>
+
+        <h2>Quick Smoke Test</h2>
+        <pre><code>curl "http://localhost:3000/health"
+curl "http://localhost:3000/search?query=awolowo"
+curl "http://localhost:3000/postcode/100/streets"</code></pre>
+      </main>
+    </div>
+  </body>
+</html>
