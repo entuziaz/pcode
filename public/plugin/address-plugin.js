@@ -34,6 +34,12 @@
     return wrap;
   }
 
+  function fieldWithHelp(labelText, inputNode, helpText) {
+    var wrap = field(labelText, inputNode);
+    wrap.appendChild(el("small", { className: "field-help", text: helpText }));
+    return wrap;
+  }
+
   function mount(options) {
     var target = options && options.target ? options.target : document.body;
     var apiBaseUrl = (options && options.apiBaseUrl) || "";
@@ -53,6 +59,20 @@
 
     var locationButton = el("button", { type: "button", text: "Use my location" });
     var status = el("p", { className: "status", text: "Ready" });
+    var streetById = {};
+    var isBusy = false;
+
+    function setBusy(nextBusy, message) {
+      isBusy = nextBusy;
+      search.disabled = nextBusy;
+      postcode.disabled = nextBusy;
+      streetSelect.disabled = nextBusy;
+      locationButton.disabled = nextBusy;
+      locationButton.textContent = nextBusy ? "Working..." : "Use my location";
+      if (message) {
+        status.textContent = message;
+      }
+    }
 
     function fillAddress(record) {
       if (!record) return;
@@ -63,12 +83,15 @@
     }
 
     function setStreetOptions(results) {
+      streetById = {};
       streetSelect.innerHTML = "";
       streetSelect.appendChild(el("option", { value: "", text: "Select street" }));
 
-      results.forEach(function (row) {
+      results.forEach(function (row, idx) {
+        var optionId = "s_" + String(idx);
+        streetById[optionId] = row;
         var label = row.street + " | " + row.area + " | " + row.lga;
-        var option = el("option", { value: JSON.stringify(row), text: label });
+        var option = el("option", { value: optionId, text: label });
         streetSelect.appendChild(option);
       });
 
@@ -76,11 +99,14 @@
     }
 
     var onSearch = debounce(function (queryText) {
+      if (isBusy) return;
       if (!queryText || queryText.trim().length < 2) {
         setStreetOptions([]);
+        status.textContent = "Type at least 2 characters to search";
         return;
       }
 
+      setBusy(true, "Searching streets...");
       fetch(apiBaseUrl + "/search?query=" + encodeURIComponent(queryText.trim()) + "&limit=25")
         .then(function (res) { return res.json(); })
         .then(function (payload) {
@@ -88,6 +114,9 @@
         })
         .catch(function (error) {
           status.textContent = "Search failed: " + error.message;
+        })
+        .finally(function () {
+          setBusy(false);
         });
     }, 180);
 
@@ -96,9 +125,11 @@
     });
 
     postcode.addEventListener("change", function () {
+      if (isBusy) return;
       var code = postcode.value.trim();
       if (!code) return;
 
+      setBusy(true, "Looking up postcode...");
       fetch(apiBaseUrl + "/postcode/" + encodeURIComponent(code))
         .then(function (res) { return res.json(); })
         .then(function (payload) {
@@ -109,27 +140,31 @@
         })
         .catch(function (error) {
           status.textContent = "Postcode lookup failed: " + error.message;
+        })
+        .finally(function () {
+          setBusy(false);
         });
     });
 
     streetSelect.addEventListener("change", function () {
-      var value = streetSelect.value;
-      if (!value) return;
-      try {
-        var parsed = JSON.parse(value);
-        fillAddress(parsed);
-      } catch (error) {
-        status.textContent = "Unable to parse selected street";
+      var optionId = streetSelect.value;
+      if (!optionId) return;
+      var selected = streetById[optionId];
+      if (!selected) {
+        status.textContent = "Unable to resolve selected street";
+        return;
       }
+      fillAddress(selected);
     });
 
     locationButton.addEventListener("click", function () {
+      if (isBusy) return;
       if (!navigator.geolocation) {
         status.textContent = "Geolocation not supported in this browser";
         return;
       }
 
-      status.textContent = "Getting your location...";
+      setBusy(true, "Getting your location...");
       navigator.geolocation.getCurrentPosition(function (position) {
         fetch(apiBaseUrl + "/reverse-geocode", {
           method: "POST",
@@ -150,9 +185,13 @@
           })
           .catch(function (error) {
             status.textContent = "Reverse geocode failed: " + error.message;
+          })
+          .finally(function () {
+            setBusy(false);
           });
       }, function (error) {
         status.textContent = "Location access failed: " + error.message;
+        setBusy(false);
       });
     });
 
@@ -161,9 +200,9 @@
     root.appendChild(field("Search street or area", search));
     root.appendChild(field("Street", streetSelect));
     root.appendChild(field("Postcode (3 or 6 digits)", postcode));
-    root.appendChild(field("Area/Ward", area));
-    root.appendChild(field("LGA", lga));
-    root.appendChild(field("State", state));
+    root.appendChild(fieldWithHelp("Area/Ward", area, "Auto-filled after you pick a street, postcode, or location."));
+    root.appendChild(fieldWithHelp("LGA", lga, "Auto-filled from selected address data."));
+    root.appendChild(fieldWithHelp("State", state, "Auto-filled. Lagos for this pilot phase."));
     root.appendChild(locationButton);
     root.appendChild(status);
 
