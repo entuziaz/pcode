@@ -4,8 +4,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const DEFAULT_SOURCE_DIR = path.join(__dirname, "..", "data", "raw", "LASG");
-const SOURCE_DIR = process.env.LASG_SOURCE_DIR || DEFAULT_SOURCE_DIR;
+const SOURCE_DIR = process.env.LASG_SOURCE_DIR;
 const OUTPUT_FILE = path.join(__dirname, "..", "data", "canonical-addresses.lagos.json");
 
 const LGA_POSTCODE_PREFIX = {
@@ -280,7 +279,7 @@ function buildDataset() {
   return {
     metadata: {
       generatedAt: new Date().toISOString(),
-      sourceDir: path.relative(path.join(__dirname, ".."), SOURCE_DIR) || ".",
+      sourceDir: SOURCE_DIR,
       state: "Lagos",
       recordCount: records.length,
       lgaCount: Array.from(new Set(records.map((r) => r.lga))).length,

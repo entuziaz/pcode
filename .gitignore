@@ -1,0 +1,19 @@
+# Environment / secrets
+.env
+.env.*
+*.local
+
+# Keys / certs
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+
+# Logs / OS
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+
+# Node artifacts
+node_modules/
