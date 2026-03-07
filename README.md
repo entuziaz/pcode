@@ -23,10 +23,15 @@ Repository: [https://github.com/entuziaz/pcode](https://github.com/entuziaz/pcod
 - Start here: [Developer Docs](./docs/developers/README.md)
 - API details: [API Reference](./docs/developers/api-reference.md)
 - Integration steps: [Integration Guide](./docs/developers/integration-guide.md)
+- In-app HTML docs:
+  - `http://localhost:3000/docs`
+  - `http://localhost:3000/docs/api-reference.html`
+  - `http://localhost:3000/docs/integration-guide.html`
 
 ## Project Structure
 
 - `scripts/build-dataset.js`: compiles and normalizes raw text files into canonical JSON.
+- `data/raw/LASG`: raw Lagos source files used by dataset build.
 - `data/canonical-addresses.lagos.json`: generated dataset used by API and plugin.
 - `src/dataset.js`: dataset loading, normalization, search, postcode lookup, reverse-geocode guess.
 - `src/server.js`: HTTP server + API routes + static demo hosting.
@@ -34,6 +39,8 @@ Repository: [https://github.com/entuziaz/pcode](https://github.com/entuziaz/pcod
 - `public/plugin/address-plugin.js`: embeddable plugin script.
 - `public/demo/index.html`: demo page using the plugin.
 - `public/demo/styles.css`: demo/plugin styling.
+- `public/docs/*`: in-app HTML developer documentation pages.
+- `docs/developers/*`: canonical markdown developer docs source.
 
 ## Data Model (Canonical Record)
 

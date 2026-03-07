@@ -36,6 +36,14 @@ h1 {
   margin-bottom: 18px;
 }
 
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
 .pilot-badge {
   display: inline-block;
   padding: 4px 10px;
@@ -45,6 +53,21 @@ h1 {
   font-size: 12px;
   font-weight: 700;
   margin-bottom: 10px;
+}
+
+.docs-cta {
+  display: inline-block;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: #fff;
+  font-weight: 600;
+}
+
+.docs-cta:hover {
+  border-color: var(--accent);
 }
 
 .trust-note {
@@ -120,6 +143,11 @@ a:focus-visible {
 }
 
 @media (max-width: 640px) {
+  .hero-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .address-plugin .actions {
     grid-template-columns: 1fr;
   }
