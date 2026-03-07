@@ -27,35 +27,73 @@
     };
   }
 
-  function field(labelText, inputNode) {
+  var mountCounter = 0;
+
+  function field(labelText, inputNode, inputId) {
     var wrap = el("div", { className: "field" });
-    wrap.appendChild(el("label", { className: "field-label", text: labelText }));
+    wrap.appendChild(el("label", { className: "field-label", text: labelText, for: inputId }));
     wrap.appendChild(inputNode);
     return wrap;
   }
 
-  function fieldWithHelp(labelText, inputNode, helpText) {
-    var wrap = field(labelText, inputNode);
-    wrap.appendChild(el("small", { className: "field-help", text: helpText }));
+  function fieldWithHelp(labelText, inputNode, inputId, helpText, helpId) {
+    var wrap = field(labelText, inputNode, inputId);
+    wrap.appendChild(el("small", { className: "field-help", text: helpText, id: helpId }));
     return wrap;
   }
 
   function mount(options) {
+    mountCounter += 1;
+    var formIdPrefix = "pcode-" + String(mountCounter);
+    function id(name) {
+      return formIdPrefix + "-" + name;
+    }
+
     var target = options && options.target ? options.target : document.body;
     var apiBaseUrl = (options && options.apiBaseUrl) || "";
 
     var root = el("div", { className: "address-plugin" });
     var title = el("h3", { text: "pCode Address Plugin (Lagos Pilot)" });
 
-    var house = el("input", { type: "text", placeholder: "e.g. 12B" });
-    var search = el("input", { type: "text", placeholder: "e.g. Awolowo" });
-    var streetSelect = el("select");
+    var houseId = id("house");
+    var searchId = id("search");
+    var streetId = id("street");
+    var postcodeId = id("postcode");
+    var areaId = id("area");
+    var lgaId = id("lga");
+    var stateId = id("state");
+    var areaHelpId = id("area-help");
+    var lgaHelpId = id("lga-help");
+    var stateHelpId = id("state-help");
+
+    var house = el("input", { id: houseId, type: "text", placeholder: "e.g. 12B" });
+    var search = el("input", { id: searchId, type: "text", placeholder: "e.g. Awolowo" });
+    var streetSelect = el("select", { id: streetId });
     streetSelect.appendChild(el("option", { value: "", text: "Select street" }));
 
-    var postcode = el("input", { type: "text", placeholder: "e.g. 100281 or 100" });
-    var area = el("input", { type: "text", readonly: "readonly", placeholder: "Auto-filled" });
-    var lga = el("input", { type: "text", readonly: "readonly", placeholder: "Auto-filled" });
-    var state = el("input", { type: "text", readonly: "readonly", value: "Lagos", placeholder: "Auto-filled" });
+    var postcode = el("input", { id: postcodeId, type: "text", placeholder: "e.g. 100281 or 100" });
+    var area = el("input", {
+      id: areaId,
+      type: "text",
+      readonly: "readonly",
+      placeholder: "Auto-filled",
+      "aria-describedby": areaHelpId
+    });
+    var lga = el("input", {
+      id: lgaId,
+      type: "text",
+      readonly: "readonly",
+      placeholder: "Auto-filled",
+      "aria-describedby": lgaHelpId
+    });
+    var state = el("input", {
+      id: stateId,
+      type: "text",
+      readonly: "readonly",
+      value: "Lagos",
+      placeholder: "Auto-filled",
+      "aria-describedby": stateHelpId
+    });
 
     var locationButton = el("button", { type: "button", text: "Use my location" });
     var status = el("p", { className: "status", text: "Ready" });
@@ -196,13 +234,13 @@
     });
 
     root.appendChild(title);
-    root.appendChild(field("House/Flat Number", house));
-    root.appendChild(field("Search street or area", search));
-    root.appendChild(field("Street", streetSelect));
-    root.appendChild(field("Postcode (3 or 6 digits)", postcode));
-    root.appendChild(fieldWithHelp("Area/Ward", area, "Auto-filled after you pick a street, postcode, or location."));
-    root.appendChild(fieldWithHelp("LGA", lga, "Auto-filled from selected address data."));
-    root.appendChild(fieldWithHelp("State", state, "Auto-filled. Lagos for this pilot phase."));
+    root.appendChild(field("House/Flat Number", house, houseId));
+    root.appendChild(field("Search street or area", search, searchId));
+    root.appendChild(field("Street", streetSelect, streetId));
+    root.appendChild(field("Postcode (3 or 6 digits)", postcode, postcodeId));
+    root.appendChild(fieldWithHelp("Area/Ward", area, areaId, "Auto-filled after you pick a street, postcode, or location.", areaHelpId));
+    root.appendChild(fieldWithHelp("LGA", lga, lgaId, "Auto-filled from selected address data.", lgaHelpId));
+    root.appendChild(fieldWithHelp("State", state, stateId, "Auto-filled. Lagos for this pilot phase.", stateHelpId));
     root.appendChild(locationButton);
     root.appendChild(status);
 
