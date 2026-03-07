@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pCode Addressing MVP</title>
+    <link rel="stylesheet" href="/demo/styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>pCode Addressing MVP</h1>
+      <p>
+        Type a street keyword (like <code>Awolowo</code>), or enter postcode prefix
+        (<code>100</code>, <code>101</code>, <code>102</code>...), then select a street.
+      </p>
+      <div id="plugin-root"></div>
+
+      <section>
+        <h2>API Quick Checks</h2>
+        <ul>
+          <li><a href="/health">GET /health</a></li>
+          <li><a href="/search?query=awolowo">GET /search?query=awolowo</a></li>
+          <li><a href="/postcode/100/streets">GET /postcode/100/streets</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/plugin/address-plugin.js"></script>
+    <script>
+      window.AddressPlugin.mount({
+        target: document.getElementById("plugin-root"),
+        apiBaseUrl: ""
+      });
+    </script>
+  </body>
+</html>

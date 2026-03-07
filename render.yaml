@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: pcode
+    env: node
+    plan: free
+    autoDeploy: true
+    buildCommand: npm install && npm run build:dataset
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20

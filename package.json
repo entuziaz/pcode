@@ -1,0 +1,12 @@
+{
+  "name": "pcode-mvp",
+  "version": "0.1.0",
+  "description": "Nigeria postcode/address MVP with local canonical dataset, API, and embeddable plugin demo",
+  "main": "src/server.js",
+  "scripts": {
+    "build:dataset": "node scripts/build-dataset.js",
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "license": "MIT"
+}
