@@ -107,6 +107,24 @@ a:focus-visible {
   cursor: pointer;
 }
 
+.address-plugin .actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.address-plugin button.secondary {
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+@media (max-width: 640px) {
+  .address-plugin .actions {
+    grid-template-columns: 1fr;
+  }
+}
+
 .address-plugin button:disabled,
 .address-plugin input:disabled,
 .address-plugin select:disabled {

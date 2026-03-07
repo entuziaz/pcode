@@ -52,7 +52,7 @@
     var target = options && options.target ? options.target : document.body;
     var apiBaseUrl = (options && options.apiBaseUrl) || "";
 
-    var root = el("div", { className: "address-plugin" });
+    var root = el("form", { className: "address-plugin", novalidate: "novalidate" });
     var title = el("h3", { text: "pCode Address Plugin (Lagos Pilot)" });
 
     var houseId = id("house");
@@ -95,6 +95,7 @@
       "aria-describedby": stateHelpId
     });
 
+    var submitButton = el("button", { type: "submit", className: "secondary", text: "Find address" });
     var locationButton = el("button", { type: "button", text: "Use my location" });
     var status = el("p", {
       className: "status",
@@ -111,6 +112,7 @@
       search.disabled = nextBusy;
       postcode.disabled = nextBusy;
       streetSelect.disabled = nextBusy;
+      submitButton.disabled = nextBusy;
       locationButton.disabled = nextBusy;
       locationButton.textContent = nextBusy ? "Working..." : "Use my location";
       if (message) {
@@ -142,16 +144,17 @@
       status.textContent = results.length + " match(es)";
     }
 
-    var onSearch = debounce(function (queryText) {
-      if (isBusy) return;
-      if (!queryText || queryText.trim().length < 2) {
+    function performSearch(queryText) {
+      if (isBusy) return Promise.resolve();
+      var normalizedQuery = queryText && queryText.trim();
+      if (!normalizedQuery || normalizedQuery.length < 2) {
         setStreetOptions([]);
         status.textContent = "Type at least 2 characters to search";
-        return;
+        return Promise.resolve();
       }
 
       setBusy(true, "Searching streets...");
-      fetch(apiBaseUrl + "/search?query=" + encodeURIComponent(queryText.trim()) + "&limit=25")
+      return fetch(apiBaseUrl + "/search?query=" + encodeURIComponent(normalizedQuery) + "&limit=25")
         .then(function (res) { return res.json(); })
         .then(function (payload) {
           setStreetOptions(payload.results || []);
@@ -162,19 +165,15 @@
         .finally(function () {
           setBusy(false);
         });
-    }, 180);
+    }
 
-    search.addEventListener("input", function (event) {
-      onSearch(event.target.value);
-    });
-
-    postcode.addEventListener("change", function () {
-      if (isBusy) return;
-      var code = postcode.value.trim();
-      if (!code) return;
+    function performPostcodeLookup(code) {
+      if (isBusy) return Promise.resolve();
+      var normalizedCode = code && code.trim();
+      if (!normalizedCode) return Promise.resolve();
 
       setBusy(true, "Looking up postcode...");
-      fetch(apiBaseUrl + "/postcode/" + encodeURIComponent(code))
+      return fetch(apiBaseUrl + "/postcode/" + encodeURIComponent(normalizedCode))
         .then(function (res) { return res.json(); })
         .then(function (payload) {
           setStreetOptions(payload.streets || []);
@@ -188,6 +187,36 @@
         .finally(function () {
           setBusy(false);
         });
+    }
+
+    var onSearch = debounce(function (queryText) {
+      performSearch(queryText);
+    }, 180);
+
+    search.addEventListener("input", function (event) {
+      onSearch(event.target.value);
+    });
+
+    postcode.addEventListener("change", function () {
+      performPostcodeLookup(postcode.value);
+    });
+
+    root.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var queryText = search.value.trim();
+      var code = postcode.value.trim();
+
+      if (queryText.length >= 2) {
+        performSearch(queryText);
+        return;
+      }
+
+      if (code.length > 0) {
+        performPostcodeLookup(code);
+        return;
+      }
+
+      status.textContent = "Enter a street query or postcode, then submit.";
     });
 
     streetSelect.addEventListener("change", function () {
@@ -247,7 +276,8 @@
     root.appendChild(fieldWithHelp("Area/Ward", area, areaId, "Auto-filled after you pick a street, postcode, or location.", areaHelpId));
     root.appendChild(fieldWithHelp("LGA", lga, lgaId, "Auto-filled from selected address data.", lgaHelpId));
     root.appendChild(fieldWithHelp("State", state, stateId, "Auto-filled. Lagos for this pilot phase.", stateHelpId));
-    root.appendChild(locationButton);
+    var actions = el("div", { className: "actions" }, [submitButton, locationButton]);
+    root.appendChild(actions);
     root.appendChild(status);
 
     target.appendChild(root);
