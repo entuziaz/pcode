@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="pCode logo">
+  <rect width="512" height="512" fill="#ececec"/>
+  <circle cx="176" cy="176" r="58" fill="none" stroke="#211b1b" stroke-width="22"/>
+  <circle cx="328" cy="198" r="45" fill="none" stroke="#211b1b" stroke-width="22"/>
+  <path d="M164 304c52 52 132 52 184 0" fill="none" stroke="#211b1b" stroke-width="22" stroke-linecap="round"/>
+</svg>

@@ -156,3 +156,8 @@ Notes:
 - Two of the scraped source files were empty, so some LGAs have no extracted records yet.
 - Next quality upgrade is replacing centroid geo with per-street geocoded points and validated postcodes.
 - Expansion path: onboard other states by adding their source files, running normalization, and generating additional canonical datasets.
+
+## Credits
+
+- Project inspiration:
+  [An Open Source Project Nigeria Needs. Hint: Location! Location!! Location!!!](https://oonwoye.com/postcode/)
